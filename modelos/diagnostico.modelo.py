@@ -1,4 +1,4 @@
-class diagnostico:
+class diagnosticos:
 
     id: str
     nombre: str

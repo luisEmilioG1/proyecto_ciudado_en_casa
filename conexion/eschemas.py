@@ -5,8 +5,7 @@ class User(BaseModel):
     id:int
     password:str
 
-class diagnostico(BaseModel):
-    id: int
+class Diagnostico(BaseModel):
     nombre_diagnostico: str
     descripcion: str
 

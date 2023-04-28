@@ -1,30 +1,7 @@
-from fastapi import FastAPI,APIRouter
-from conexion.eschemas import User
-from conexion.database import USUARIOS
-from routers.usuario import user
+from fastapi import FastAPI
+from rutas.diagnostico import diagnostico
 
 app = FastAPI()
 
-app.include_router(user,prefix='/user')
-
-@app.get("/")
-def hello_world():
-    return {"message":"Servidor ejecutandose"}
-
-
-@app.post("/diagnostico/adddiag/")
-def add_usr(user:User):
-    #id
-    #username
-    #passwd
-    for usuario in USUARIOS:
-        if user.username == usuario['username']:
-            return {"message":"Usuario ya existe"}
-    
-    # metodo para agregar en la base de datos
-    USUARIOS.append(user)
-    return {"message": "usuario añadido con éxito"}
-
-
-
+app.include_router(diagnostico,prefix='/diagnostico')
 
