@@ -1,18 +1,20 @@
-from fastapi import FastAPI,APIRouter
-from conexion.eschemas import User
+import sys
+sys.path.append('../')
+
+from fastapi import APIRouter
 from conexion.database import USUARIOS
-from routers.usuario import user
+from conexion.eschemas import User
 
-app = FastAPI()
-
-app.include_router(user,prefix='/user')
-
-@app.get("/")
-def hello_world():
-    return {"message":"Servidor ejecutandose"}
+user = APIRouter()
 
 
-@app.post("/diagnostico/adddiag/")
+@user.get("/all/")
+def listar_allUsers():
+    return USUARIOS
+
+
+
+@user.post("/addusr/")
 def add_usr(user:User):
     #id
     #username
@@ -24,7 +26,3 @@ def add_usr(user:User):
     # metodo para agregar en la base de datos
     USUARIOS.append(user)
     return {"message": "usuario añadido con éxito"}
-
-
-
-

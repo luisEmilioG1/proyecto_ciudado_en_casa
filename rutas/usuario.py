@@ -3,8 +3,8 @@ import sys
 sys.path.append('../')
 
 from fastapi import APIRouter
-from database import USUARIOS
-from eschemas import User
+from conexion.database import USUARIOS
+from conexion.eschemas import User
 
 user = APIRouter()
 
