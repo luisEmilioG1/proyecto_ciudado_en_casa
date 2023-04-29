@@ -31,7 +31,9 @@ PASSWORD=<yor db password>
 DB=<your database name>
 ```
 
-4. Iniciar `FastApi` app
+5. Cree la base de datos deacuerdo al [DDL](./resources/proySoft2.sql)
+
+6. Iniciar `FastApi` app
 ```bash 
 uvicorn main:app --reload
 ```
