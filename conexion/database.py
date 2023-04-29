@@ -1,10 +1,10 @@
 import mysql.connector
 
 CONEXION = mysql.connector.connect(
-        host="localhost",
+        host="34.134.64.128",
         port=3306,
         user="root",
-        password="Admin123",
+        password="c/b[K>$tM\\6GYUx9",
         database="SOFT2"
       )
 

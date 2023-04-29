@@ -1,3 +1,5 @@
 numpy
 fastapi[all]
 uvicorn[standard]
+ mysql.connector
+
