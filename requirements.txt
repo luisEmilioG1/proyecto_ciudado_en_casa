@@ -1,5 +1,5 @@
 numpy
 fastapi[all]
 uvicorn[standard]
- mysql.connector
-
+mysql.connector
+python-dotenv

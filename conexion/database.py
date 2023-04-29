@@ -1,12 +1,18 @@
 import mysql.connector
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 
 CONEXION = mysql.connector.connect(
-        host="34.134.64.128",
-        port=3306,
-        user="root",
-        password="c/b[K>$tM\\6GYUx9",
-        database="SOFT2"
-      )
+        host = os.getenv("HOST"),
+        port= os.getenv("DB_PORT"),
+        user= os.getenv("USER"),
+        password= os.getenv("PASSWORD"),
+        database= os.getenv("DB")
+)
 
 CURSOR = None
 
