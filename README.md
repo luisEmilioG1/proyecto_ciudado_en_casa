@@ -37,17 +37,22 @@ uvicorn main:app --reload
 ```
 ## Uso
 * Caso de uso `Consultar signos vitales`
+
+### METHOD
+```
+    GET
+```
 ### URL
 ```
- http://127.0.0.1:8000/signo_vital/consultar_signos_vitales
+    http://127.0.0.1:8000/signo_vital/consultar_signos_vitales
 ```
 ### body
 ```json
-{
-    "id": 3,
-    "fecha_inicio": "2022-01-01 08:00:00",
-    "fecha_fin": "2022-01-02 08:00:0"
-}
+    {
+        "id": 3,
+        "fecha_inicio": "2022-01-01 08:00:00",
+        "fecha_fin": "2022-01-02 08:00:0"
+    }
 ```
 
 
