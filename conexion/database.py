@@ -1,21 +1,31 @@
 import mysql.connector
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
 
+HOST= os.getenv('HOST')
+PORT= os.getenv('PORT')
+USER= os.getenv('USER')
+PASSWORD= os.getenv('PASSWORD')
+DB= os.getenv('DB')
 
 CONEXION = mysql.connector.connect(
-        host = os.getenv('HOST'),
-        port= os.getenv('PORT'),
-        user= os.getenv("USER"),
-        password= os.getenv("PASSWORD"),
-        database= os.getenv("DB")
+  host = HOST,
+  port= PORT,
+  user= USER,
+  password= PASSWORD,
+  database= DB
 )
 
-CURSOR = None
-
 class conexionDB():  
-    def __init__(self):
-      self.CURSOR = CONEXION.cursor()
-      self.CONEXION = CONEXION
+  CURSOR = None
+  def __init__(self):
+    self.CURSOR = CONEXION.cursor()
+    
+  # patron singelton
+  @staticmethod
+  def get_instance():
+      if conexionDB.CURSOR is None:
+          return conexionDB()
+      return conexionDB
+
