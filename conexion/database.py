@@ -5,10 +5,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-
 CONEXION = mysql.connector.connect(
-        host = os.getenv("HOST"),
-        port= os.getenv("DB_PORT"),
+        host = os.getenv('HOST'),
+        port= os.getenv('PORT'),
         user= os.getenv("USER"),
         password= os.getenv("PASSWORD"),
         database= os.getenv("DB")
