@@ -2,9 +2,9 @@ import sys
 sys.path.append('../')
 
 from fastapi import APIRouter
-from conexion.eschemas import Signo_vital
+from conexion.schemas import Signo_vital
 from controladores.signo_vital import SignoVitalControlador
-from conexion.eschemas import Fechas
+from conexion.schemas import Fechas
 
 controlador = SignoVitalControlador()
 
