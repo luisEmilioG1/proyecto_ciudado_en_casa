@@ -2,7 +2,7 @@ from conexion.database import conexionDB
 from datetime import datetime
 import json
 
-from conexion.eschemas import Signo_vital
+from conexion.schemas import Signo_vital
 
 data = None
 conect = None

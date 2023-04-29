@@ -1,5 +1,5 @@
 from conexion.database import conexionDB
-from conexion.eschemas import Diagnostico
+from conexion.schemas import Diagnostico
 import json
 
 data = None
@@ -38,5 +38,5 @@ class DiagnosticoControlador():
         self.data.CONEXION.close()
 
         return diagnostico_generado
-
-
+    
+     
