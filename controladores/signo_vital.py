@@ -4,16 +4,19 @@ import json
 
 from conexion.schemas import Signo_vital
 
-data = None
-conect = None
-
 class SignoVitalControlador():
+    data = None
+    conect = None
+    
     def __init__(self):
-            self.data = conexionDB()
+            self.data = conexionDB.get_instance()
             self.conect = self.data.CURSOR
             
     def get_signos_vitales(self, id: int, fecha_inicio: str, fecha_fin: str):
-        self.conect.execute(f'SELECT H.id, DATE_FORMAT(fecha, "%Y-%m-%d %H:%i:%s") AS fecha, S.nombre_signo, S.unidad, H.valor FROM signosVitales AS S INNER JOIN historialSignoVital AS H ON S.id = H.signo_id WHERE paciente_id = {id} and (fecha BETWEEN "{fecha_inicio}" AND "{fecha_fin}")')
+        date_format = "%Y-%m-%d %H:%i:%s"
+        query = 'SELECT H.id, DATE_FORMAT(fecha, %s) AS fecha, S.nombre_signo, S.unidad, H.valor FROM signosVitales AS S INNER JOIN historialSignoVital AS H ON S.id = H.signo_id WHERE paciente_id = %s and (fecha BETWEEN %s AND %s)'
+        # se previene SQL injection
+        self.conect.execute(query, (date_format, id, fecha_inicio, fecha_fin))
         signos = self.conect.fetchall()
         signos_json = []
         for signo in signos:
