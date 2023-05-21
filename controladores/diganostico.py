@@ -1,4 +1,4 @@
-from conexion.database import conexionDB
+'''from conexion.database import conexionDB
 from conexion.schemas import Diagnostico
 import json
 
@@ -40,3 +40,4 @@ class DiagnosticoControlador():
         return diagnostico_generado
     
      
+'''

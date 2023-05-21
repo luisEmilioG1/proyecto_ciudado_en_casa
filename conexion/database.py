@@ -1,31 +1,23 @@
-import mysql.connector
 import os
 from dotenv import load_dotenv
 load_dotenv()
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 HOST= os.getenv('HOST')
 PORT= os.getenv('PORT')
 USER= os.getenv('USER')
 PASSWORD= os.getenv('PASSWORD')
 DB= os.getenv('DB')
+DRIVER = os.getenv('DRIVER')
 
-CONEXION = mysql.connector.connect(
-  host = HOST,
-  port= PORT,
-  user= USER,
-  password= PASSWORD,
-  database= DB
-)
+connection_string = f"DRIVER={DRIVER};SERVER={HOST};DATABASE={DB};UID={USER};PWD={PASSWORD}"
 
-class conexionDB():  
-  CURSOR = None
-  def __init__(self):
-    self.CURSOR = CONEXION.cursor()
-    
-  # patron singelton
-  @staticmethod
-  def get_instance():
-      if conexionDB.CURSOR is None:
-          return conexionDB()
-      return conexionDB
+# Crear el motor de SQLAlchemy
+engine = create_engine(f"mssql+pyodbc:///?odbc_connect={connection_string}")
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
 

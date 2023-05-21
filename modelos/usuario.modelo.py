@@ -20,3 +20,4 @@ class Usuario:
         self.edad = edad
         self.password = password
         
+        

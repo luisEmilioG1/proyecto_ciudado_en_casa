@@ -1,4 +1,4 @@
-from conexion.database import conexionDB
+'''from conexion.database import conexionDB
 from datetime import datetime
 import json
 
@@ -30,3 +30,4 @@ class SignoVitalControlador():
         return signos_json
 
 
+'''
