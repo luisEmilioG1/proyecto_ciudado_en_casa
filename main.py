@@ -5,6 +5,7 @@ from sqlalchemy.exc import NoResultFound
 from typing import List
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy import inspect
+from conexion.modelos import User
 
 '''from rutas.diagnostico import diagnostico
 from rutas.signo_vital import signo_vital'''

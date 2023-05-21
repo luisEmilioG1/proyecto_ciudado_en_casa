@@ -13,11 +13,10 @@ PASSWORD= os.getenv('PASSWORD')
 DB= os.getenv('DB')
 DRIVER = os.getenv('DRIVER')
 
-connection_string = f"DRIVER={DRIVER};SERVER={HOST};DATABASE={DB};UID={USER};PWD={PASSWORD}"
-
 # Crear el motor de SQLAlchemy
-engine = create_engine(f"mssql+pyodbc:///?odbc_connect={connection_string}")
+engine = create_engine(f"mysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}")
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+session = SessionLocal()
 
 Base = declarative_base()
 
