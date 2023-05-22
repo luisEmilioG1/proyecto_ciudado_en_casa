@@ -67,6 +67,9 @@ class Paciente(UserBase):
     correo: str
     edad: int
     
+class Paciente_cedula(UserBase):
+    cedula:str
+    
 class Fechas(BaseModel):
     id: str
     fecha_inicio: str
