@@ -31,3 +31,17 @@ class SignoVitalControlador():
 
 
 '''
+
+import sys
+sys.path.append('../')
+
+from fastapi import APIRouter, HTTPException, Depends
+from conexion.schemas import SignoVitalBase, SignoVital
+from controladores import signo_vital as controlador_signo_vital
+from sqlalchemy.orm import Session
+from conexion.database import get_db
+
+
+
+
+

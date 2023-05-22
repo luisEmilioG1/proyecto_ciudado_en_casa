@@ -1,30 +1,30 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, CHAR
-from sqlalchemy.orm import realtionship, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, CHAR, ForeignKey
+from sqlalchemy.orm import relationship
 
-from database import Base
+from conexion.database import Base
 
-class User(Base):
+class UserDB(Base):
 
     __tablename__ = "user"
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(20), nullable=False)
     apellido = Column(String(20), nullable=False)
-    cedula = Column(Integer, nullable=False, unique=True)
+    cedula = Column(String(11), nullable=False, unique=True)
     edad = Column(Integer, nullable=False)
     telefono = Column(String(10), nullable=False)
     email = Column(String(50), nullable=False, unique=True)
-    passwd = Column(String(50), nullable=False)
+    psswd = Column(String(50), nullable=False)
     direccion = Column(String(50), nullable=False)
 
     #Lo que recibo como llave foránea para otras tablas
-    paciente = realtionship("Paciente", back_populates="user")
-    familiar_designado = realtionship("Familiar_designado", back_populates="user")
-    personal_medico = realtionship("Personal_medico", back_populates="user")
-    auxiliar = realtionship("Auxiliar", back_populates="user")
+    paciente = relationship("PacienteDB", back_populates="user")
+    familiar_designado = relationship("Familiar_designadoDB", back_populates="user")
+    personal_medico = relationship("Personal_medicoDB", back_populates="user")
+    auxiliar = relationship("AuxiliarDB", back_populates="user")
     
 
-class Diagnostico(Base):
+class DiagnosticoDB(Base):
 
     __tablename__ = "diagnostico"
 
@@ -33,10 +33,10 @@ class Diagnostico(Base):
     descripcion = Column(String(100), nullable=False)
 
     #Lo que recibo como llave foránea para otras tablas
-    historial_diagnostico = realtionship("Historial_diagnostico", back_populates="diagnostico")
+    historial_diagnostico = relationship("Historial_diagnosticoDB", back_populates="diagnostico")
 
     
-class Signo_vital(Base):
+class Signo_vitalDB(Base):
 
     __tablename__ = "signosVitales"
 
@@ -45,9 +45,9 @@ class Signo_vital(Base):
     unidad = Column(String(4), nullable=False)
 
     #Lo que recibo como llave foránea para otras tablas
-    historial_signo_vital = realtionship("Historial_signo_vital", back_populates="signo_vital")
+    historial_signo_vital = relationship("Historial_signo_vitalDB", back_populates="signo_vital")
 
-class Paciente(Base):
+class PacienteDB(Base):
 
     __tablename__ = "paciente"
 
@@ -58,17 +58,17 @@ class Paciente(Base):
     familiar_id = Column(Integer, ForeignKey("familiarDesignado.id"), nullable=False)
 
     #Lo que expongo como llave foránea para otras tablas
-    familiar = realtionship("Familiar_designado", back_populates="paciente")
-    user = realtionship("User", back_populates="paciente")
+    familiar = relationship("Familiar_designadoDB", back_populates="paciente")
+    user = relationship("UserDB", back_populates="paciente")
 
     #Lo que recibo como llave foránea para otras tablas
-    historial_signo_vital = realtionship("Historial_signo_vital", back_populates="paciente")
-    historial_cuidados = realtionship("Historial_ciudados", back_populates="paciente")
-    historial_diagnostico = realtionship("Historial_diagnostico", back_populates="paciente")
-    personal_cargo = realtionship("Personal_a_cargo", back_populates="paciente")
+    historial_signo_vital = relationship("Historial_signo_vitalDB", back_populates="paciente")
+    historial_cuidados = relationship("Historial_ciudadosDB", back_populates="paciente")
+    historial_diagnostico = relationship("Historial_diagnosticoDB", back_populates="paciente")
+    personal_cargo = relationship("Personal_a_cargoDB", back_populates="paciente")
 
 
-class Familiar_designado(Base):
+class Familiar_designadoDB(Base):
 
     __tablename__ = "familiarDesignado"
 
@@ -79,12 +79,12 @@ class Familiar_designado(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
 
     #Lo que expongo como llave foránea para otras tablas
-    user = realtionship("User", back_populates="familiar_designado")
+    user = relationship("UserDB", back_populates="familiar_designado")
 
     #Lo que recibo como llave foránea para otras tablas
-    paciente = realtionship("Paciente", back_populates="familiar")
+    paciente = relationship("PacienteDB", back_populates="familiar")
 
-class Personal_medico(Base):
+class Personal_medicoDB(Base):
     
     __tablename__ = "personalMedico"
 
@@ -97,14 +97,14 @@ class Personal_medico(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
 
     #Lo que expongo como llave foránea para otras tablas
-    user = realtionship("User", back_populates="personal_medico")
+    user = relationship("UserDB", back_populates="personal_medico")
     
     #Lo que recibo como llave foránea para otras tablas
-    historial_cuidados = realtionship("Historial_ciudados", back_populates="profesional")
-    historial_diganostico = realtionship("Historial_diganostico", back_populates="profesional")
-    personal_cargo = realtionship("Personal_a_cargo", back_populates="profesional")
+    historial_cuidados = relationship("Historial_ciudadosDB", back_populates="profesional")
+    historial_diagnostico = relationship("Historial_diagnosticoDB", back_populates="profesional")
+    personal_cargo = relationship("Personal_a_cargoDB", back_populates="profesional")
 
-class Auxiliar(Base):
+class AuxiliarDB(Base):
          
     __tablename__ = "auxiliar"
 
@@ -114,9 +114,9 @@ class Auxiliar(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
 
     #Lo que expongo como llave foránea para otras tablas
-    user = realtionship("User", back_populates="auxiliar")
+    user = relationship("UserDB", back_populates="auxiliar")
 
-class Historial_diagnostico(Base):
+class Historial_diagnosticoDB(Base):
 
     __tablename__ = "historialDiagnostico"
 
@@ -129,12 +129,12 @@ class Historial_diagnostico(Base):
     diagnostico_id = Column(Integer, ForeignKey("diagnostico.id"), nullable=False)
     
     #Lo que expongo como llave foránea para otras tablas
-    paciente  = realtionship("Paciente", back_populates="historial_diganostico")
-    diagnostico = realtionship("Diagnostico", back_populates="historial_diagnostico")
-    profesional = realtionship("Personal_medico", back_populates="historial_diganostico")
+    paciente  = relationship("PacienteDB", back_populates="historial_diagnostico")
+    diagnostico = relationship("DiagnosticoDB", back_populates="historial_diagnostico")
+    profesional = relationship("Personal_medicoDB", back_populates="historial_diagnostico")
     
 
-class Historial_ciudados(Base):
+class Historial_ciudadosDB(Base):
          
     __tablename__ = "historialCuidados"
 
@@ -146,16 +146,13 @@ class Historial_ciudados(Base):
 
     #FK
     paciente_id = Column(Integer, ForeignKey("paciente.id"), nullable=False)
-    profesional_id = Column(Integer, ForeignKey("personalMedco.id"), nullable=False)
+    profesional_id = Column(Integer, ForeignKey("personalMedico.id"), nullable=False)
 
     #Lo que expongo como llave foránea para otras tablas
-    paciente  = realtionship("Paciente", back_populates="historial_cuidados")
-    profesional = realtionship("Personal_medico", back_populates="historial_cuidados")
+    paciente  = relationship("PacienteDB", back_populates="historial_cuidados")
+    profesional = relationship("Personal_medicoDB", back_populates="historial_cuidados")
 
-
-
-
-class Historial_signo_vital(Base):
+class Historial_signo_vitalDB(Base):
          
     __tablename__ = "historialSignoVital"
 
@@ -168,22 +165,22 @@ class Historial_signo_vital(Base):
     paciente_id = Column(Integer, ForeignKey("paciente.id"), nullable=False)
 
     #Lo que expongo como llave foránea para otras tablas
-    paciente  = realtionship("Paciente", back_populates="historial_signo_vital")
-    signo_vital = realtionship("Signo_vital", back_populates="historial_signo_vital")
+    paciente  = relationship("PacienteDB", back_populates="historial_signo_vital")
+    signo_vital = relationship("Signo_vitalDB", back_populates="historial_signo_vital")
 
 
-class Diagnostico(Base):
+'''class DiagnosticoDB(Base):
           
-    __tablename__ = "diagnostico"
+    __tablename__ = "diagnosticos"
 
     id = Column(Integer, primary_key=True, index=True)
     nombre_diagnostico = Column(String(50), nullable=False)
     descripcion = Column(String(100), nullable=False)
     
     #Lo que recibo como llave foránea para otras tablas
-    historial_diagnostico = realtionship("Historial_diagnostico", back_populates="diagnostico")
+    historial_diagnostico = relationship("Historial_diagnosticoDB", back_populates="diagnostico")'''
 
-class Personal_a_cargo(Base):
+class Personal_a_cargoDB(Base):
         
     __tablename__ = "personalACargo"
 
@@ -197,5 +194,5 @@ class Personal_a_cargo(Base):
     paciente_id = Column(Integer, ForeignKey("paciente.id"), nullable=False)
 
     #Lo que expongo como llave foránea para otras tablas
-    paciente  = realtionship("Paciente", back_populates="personal_cargo")
-    profesional = realtionship("Personal_medico", back_populates="personal_cargo")
+    paciente  = relationship("PacienteDB", back_populates="personal_cargo")
+    profesional = relationship("Personal_medicoDB", back_populates="personal_cargo")

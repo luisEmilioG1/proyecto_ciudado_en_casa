@@ -2,9 +2,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 HOST= os.getenv('HOST')
 PORT= os.getenv('PORT')
@@ -13,11 +13,16 @@ PASSWORD= os.getenv('PASSWORD')
 DB= os.getenv('DB')
 DRIVER = os.getenv('DRIVER')
 
-connection_string = f"DRIVER={DRIVER};SERVER={HOST};DATABASE={DB};UID={USER};PWD={PASSWORD}"
+engine = create_engine(f'mysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}')
 
-# Crear el motor de SQLAlchemy
-engine = create_engine(f"mssql+pyodbc:///?odbc_connect={connection_string}")
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+def get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
 

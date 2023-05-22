@@ -1,23 +1,48 @@
 from pydantic import BaseModel
 
-class User(BaseModel):
-    username:str
-    id:int
-    password:str
+class UserGet(BaseModel):
+    nombre: str
+    apellido: str
+    cedula: str
+    edad: int
+    telefono: str
+    email: str
+    direccion: str
 
-class Diagnostico(BaseModel):
+class UserBase(UserGet):
+    psswd: str
+
+    class Config:
+        orm_mode = True
+
+class User(UserBase):
+    id: int
+    
+
+    class Config:
+        orm_mode = True
+
+class DiagnosticoBase(BaseModel):
     nombre_diagnostico: str
     descripcion: str
-    
-class Signo_vital(BaseModel):
-    id: str
-    presion_arterial: float
-    hemogoblina: float
-    temperatura: float
-    pulso: float
-    fecha_signo: int
 
-class Paciente(BaseModel):
+class Diagnostico(DiagnosticoBase):
+    id:  int
+    
+    class Config:
+        orm_mode = True
+    
+class SignoVitalBase(BaseModel):
+    nombre_signo: str
+    unidad: str
+
+class SignoVital(SignoVitalBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+class Paciente(UserBase):
     id: str
     nombre: str
     apellido: str
