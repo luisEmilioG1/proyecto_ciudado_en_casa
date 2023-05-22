@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends
 from conexion.database import get_db
 from conexion.schemas import *
-from conexion.schemas import *
 from controladores import usuario as controlador_usuario
 from sqlalchemy.orm import Session
 
