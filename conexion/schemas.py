@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import *
 
 class UserGet(BaseModel):
     nombre: str
@@ -21,6 +22,21 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+class HistorialCuidadosBase(BaseModel):
+    fecha_inicial : datetime
+    fecha_final : datetime
+    profesional_id: int
+    paciente_id: int
+    cuidado: str
+    descripcion: str
+
+class HistorialCuidados(HistorialCuidadosBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+    
 
 class DiagnosticoBase(BaseModel):
     nombre_diagnostico: str

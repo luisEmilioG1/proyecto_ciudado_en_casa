@@ -18,8 +18,9 @@ def obtener_todos_usuarios(db: Session):
 def obtener_usuario(db: Session, email: str):
     return parse_user(db.query(UserDB).filter(UserDB.email == email).first())
 
-def parse_user(user: UserBase) -> UserGet:
+def parse_user(user: User) -> UserGet:
     user_get = UserGet(
+        id=user.id,
         nombre=user.nombre,
         apellido=user.apellido,
         cedula=user.cedula,

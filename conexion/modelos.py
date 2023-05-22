@@ -141,7 +141,7 @@ class Historial_ciudadosDB(Base):
     id = Column(Integer, primary_key=True, index=True)
     fecha_inicial = Column(DateTime, nullable=False)
     fecha_final = Column(DateTime, nullable=False)
-    ciudado = Column(String(50), nullable=False)
+    cuidado = Column(String(50), nullable=False)
     descripcion = Column(String(500), nullable=False)
 
     #FK
