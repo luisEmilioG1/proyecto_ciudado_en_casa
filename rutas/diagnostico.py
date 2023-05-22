@@ -1,14 +1,19 @@
-import sys
-sys.path.append('../')
+from fastapi import APIRouter, HTTPException, Depends
+from conexion.schemas import DiagnosticoBase, Diagnostico
+from controladores import diagnostico as controlador_diagnostico
+from sqlalchemy.orm import Session
+from conexion.database import get_db
 
-from fastapi import APIRouter
-from conexion.eschemas import Diagnostico
-from controladores.diganostico import DiagnosticoControlador
+diagnostico_route = APIRouter()
 
-controlador = DiagnosticoControlador()
+@diagnostico_route.post("/post", response_model=Diagnostico)
+def add_diag(diagnostico: DiagnosticoBase, db: Session = Depends(get_db)):
+    return controlador_diagnostico.crear_diagnostico(db, diagnostico)
 
-diagnostico = APIRouter()
+@diagnostico_route.get("/get/{id}", response_model=Diagnostico)
+def get_diag(id: int, db: Session = Depends(get_db)):
+    return controlador_diagnostico.obtener_diagnostico(db, id)
 
-@diagnostico.post("/diagnostico/")
-def add_diag(diagnostico: Diagnostico):
-    return controlador.agregar_diagnostico(diagnostico)
+@diagnostico_route.get("/get_all", response_model=Diagnostico)
+def get_diags(db: Session = Depends(get_db)):
+    return controlador_diagnostico.obtener_todos_diagnosticos(db)
