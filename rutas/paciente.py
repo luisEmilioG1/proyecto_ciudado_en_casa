@@ -11,5 +11,5 @@ paciente_route = APIRouter()
 def get_paciente(paciente:Paciente_cedula, db: Session = Depends(get_db)):
     paciente = get_paciente_controlador( db, paciente.cedula )
     if paciente:
-        return get_user(db, paciente.user_id)
+        return paciente
     return {"message":"No se encontro el paciente"}
