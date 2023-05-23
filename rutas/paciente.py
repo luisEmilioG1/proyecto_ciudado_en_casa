@@ -7,7 +7,7 @@ from conexion.database import get_db
 
 paciente_route = APIRouter()
 
-@paciente_route.get("/get_paciente")
+@paciente_route.post("/get_paciente")
 def get_paciente(paciente:Paciente_cedula, db: Session = Depends(get_db)):
     paciente = get_paciente_controlador( db, paciente.cedula )
     if paciente:
