@@ -15,7 +15,7 @@ origins = ['http://localhost:5173']
 
 app = FastAPI()
 # incluire cors para todos los dominios
-app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
 
 app.include_router(usuario.user_route, prefix='/user')
 app.include_router(diagnostico.diagnostico_route, prefix='/diagnostico')
