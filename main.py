@@ -22,4 +22,5 @@ app.include_router(usuario.user_route, prefix='/user')
 app.include_router(diagnostico.diagnostico_route, prefix='/diagnostico')
 app.include_router(historial_cuidados.historial_cuidados_route, prefix='/historial_cuidados')
 app.include_router(paciente.paciente_route, prefix='/paciente')
-#app.include_router(signo_vital.signo_vital_route, prefix='/signo_vital')
+app.include_router(router=signo_vital.signo_vital_route, prefix='/signo_vital')
+
