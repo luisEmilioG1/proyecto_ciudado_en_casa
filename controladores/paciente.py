@@ -10,7 +10,7 @@ def get_paciente_controlador(db: Session, cedula: str ):
     user.user.id = user.id
     return user.user
 
-def get_paciente_all_controlador(db: Session, cedula: str):
+def get_paciente_all_controlador(db: Session):
     pacientes = db.query(PacienteModelo).all()
     if not pacientes:
         return
