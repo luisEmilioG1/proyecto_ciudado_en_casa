@@ -11,7 +11,7 @@ class UserGet(BaseModel):
     direccion: str
 
 class UserBase(UserGet):
-    psswd: str
+    passwd: str
 
     class Config:
         orm_mode = True
@@ -66,6 +66,9 @@ class Paciente(UserBase):
     telefono: str
     correo: str
     edad: int
+    
+class Paciente_cedula(BaseModel):
+    cedula:str
     
 class Fechas(BaseModel):
     id: str

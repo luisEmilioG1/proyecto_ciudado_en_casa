@@ -14,7 +14,7 @@ class UserDB(Base):
     edad = Column(Integer, nullable=False)
     telefono = Column(String(10), nullable=False)
     email = Column(String(50), nullable=False, unique=True)
-    psswd = Column(String(50), nullable=False)
+    passwd = Column(String(50), nullable=False)
     direccion = Column(String(50), nullable=False)
 
     #Lo que recibo como llave foránea para otras tablas
@@ -23,7 +23,6 @@ class UserDB(Base):
     personal_medico = relationship("Personal_medicoDB", back_populates="user")
     auxiliar = relationship("AuxiliarDB", back_populates="user")
     
-
 class DiagnosticoDB(Base):
 
     __tablename__ = "diagnostico"
@@ -35,7 +34,6 @@ class DiagnosticoDB(Base):
     #Lo que recibo como llave foránea para otras tablas
     historial_diagnostico = relationship("Historial_diagnosticoDB", back_populates="diagnostico")
 
-    
 class Signo_vitalDB(Base):
 
     __tablename__ = "signosVitales"
@@ -48,9 +46,7 @@ class Signo_vitalDB(Base):
     historial_signo_vital = relationship("Historial_signo_vitalDB", back_populates="signo_vital")
 
 class PacienteDB(Base):
-
     __tablename__ = "paciente"
-
     id = Column(Integer, primary_key=True, index=True)
     
     #FK
@@ -66,7 +62,6 @@ class PacienteDB(Base):
     historial_cuidados = relationship("Historial_ciudadosDB", back_populates="paciente")
     historial_diagnostico = relationship("Historial_diagnosticoDB", back_populates="paciente")
     personal_cargo = relationship("Personal_a_cargoDB", back_populates="paciente")
-
 
 class Familiar_designadoDB(Base):
 
@@ -133,7 +128,6 @@ class Historial_diagnosticoDB(Base):
     diagnostico = relationship("DiagnosticoDB", back_populates="historial_diagnostico")
     profesional = relationship("Personal_medicoDB", back_populates="historial_diagnostico")
     
-
 class Historial_ciudadosDB(Base):
          
     __tablename__ = "historialCuidados"
@@ -167,7 +161,6 @@ class Historial_signo_vitalDB(Base):
     #Lo que expongo como llave foránea para otras tablas
     paciente  = relationship("PacienteDB", back_populates="historial_signo_vital")
     signo_vital = relationship("Signo_vitalDB", back_populates="historial_signo_vital")
-
 
 '''class DiagnosticoDB(Base):
           
