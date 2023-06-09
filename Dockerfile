@@ -6,7 +6,8 @@ RUN  apk update \
 	&& apk add --no-cache gcc musl-dev postgresql-dev python3-dev libffi-dev \
 	&& pip install --upgrade pip
 
-RUN  python3 -m venv .venv && source .venv/bin/activate
+RUN  python3 -m venv .venv 
+RUN source .venv/Scripts/activate
 
 COPY requirements.txt .
 
@@ -14,4 +15,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-# CMD ["uvicorn", "main:app"]
+CMD ["uvicorn", "main:app"]
