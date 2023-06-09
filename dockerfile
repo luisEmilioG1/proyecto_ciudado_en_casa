@@ -11,8 +11,6 @@ COPY . /app
 
 # Creamos un ambiente virtual e instalamos los requerimientos
 RUN cd /app
-RUN python3 -m venv .venv
-RUN source .venv/bin/activate
 RUN pip install -r requirements.txt
 
 # Exponemos el puerto en el que se ejecutará la aplicación
