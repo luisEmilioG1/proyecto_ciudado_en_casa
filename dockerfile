@@ -10,9 +10,8 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Creamos un ambiente virtual e instalamos los requerimientos
-RUN python -m venv venv
-RUN /bin/bash -c "source venv/bin/activate"
-RUN pip install --upgrade pip
+RUN python3 -m venv .venv
+RUN source venv/bin/activate
 RUN pip install -r requirements.txt
 
 # Copiamos el resto de los archivos al contenedor
