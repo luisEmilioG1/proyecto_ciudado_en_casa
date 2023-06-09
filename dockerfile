@@ -1,7 +1,7 @@
 # Dockerfile
 
 # Utilizamos una imagen base de Python
-FROM python:3.9
+FROM python:3.11.4
 
 # Establecemos el directorio de trabajo en /app
 RUN mkdir /app
