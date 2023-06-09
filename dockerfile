@@ -1,26 +1,25 @@
-# Use the official Python base image
-FROM python:3.9-slim
+# Dockerfile
 
-# Set the working directory in the container
+# Utilizamos una imagen base de Python
+FROM python:3.9
+
+# Establecemos el directorio de trabajo en /app
 WORKDIR /app
 
-# Copy the requirements.txt file
+# Copiamos el archivo requirements.txt al contenedor
 COPY requirements.txt .
 
-# Install the Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Creamos un ambiente virtual e instalamos los requerimientos
+RUN python -m venv venv
+RUN /bin/bash -c "source venv/bin/activate"
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Copy the application code to the container
+# Copiamos el resto de los archivos al contenedor
 COPY . .
 
-# Create a virtual environment
-RUN python -m venv venv
-
-# Activate the virtual environment
-SHELL ["venv/bin/activate"]
-
-# Expose the port on which the FastAPI application will run
+# Exponemos el puerto en el que se ejecutará la aplicación
 EXPOSE 8000
 
-# Start the FastAPI application using uvicorn
+# Iniciamos la aplicación FastAPI
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
