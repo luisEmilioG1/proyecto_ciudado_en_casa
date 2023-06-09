@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN  apk update \
 	&& apk add --no-cache gcc musl-dev postgresql-dev python3-dev libffi-dev \
-	&& && pip install --upgrade pip==23.1.2
+	&& pip install --upgrade pip==23.1.2
 
 RUN  python3 -m venv .venv 
 RUN source .venv/bin/activate
