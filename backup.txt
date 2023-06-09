@@ -1,0 +1,10 @@
+numpy
+fastapi[all]
+uvicorn[standard]
+python-dotenv
+sqlalchemy
+mysql-connector-python
+pyodbc
+mysqlclient
+passlib
+pydantic
