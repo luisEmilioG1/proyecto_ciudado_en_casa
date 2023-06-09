@@ -15,6 +15,7 @@ RUN pip install --upgrade pip==23.1.2
 
 COPY requirements.txt .
 
+
 RUN pip install -r requirements.txt
 
 COPY . .
