@@ -2,7 +2,11 @@ FROM python:3.10.4-alpine3.15
 
 WORKDIR /app
 
-RUN  python3 -m venv .venv && source .venv/bin/activate
+RUN  apk update \
+	&& apk add --no-cache gcc musl-dev postgresql-dev python3-dev libffi-dev \
+	&& pip install --upgrade pip
+    && python3 -m venv .venv 
+    && source .venv/bin/activate 
 
 COPY requirements.txt .
 
