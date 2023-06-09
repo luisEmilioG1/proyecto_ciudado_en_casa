@@ -5,8 +5,8 @@ WORKDIR /app
 RUN  apk update \
 	&& apk add --no-cache gcc musl-dev postgresql-dev python3-dev libffi-dev \
 	&& pip install --upgrade pip
-    && python3 -m venv .venv 
-    && source .venv/bin/activate 
+    
+RUN  python3 -m venv .venv && source .venv/bin/activate
 
 COPY requirements.txt .
 
