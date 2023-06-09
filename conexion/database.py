@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 HOST= os.getenv('HOST')
-PORT= os.getenv('PORT')
+PORT= os.getenv('MYPORT')
 USER= os.getenv('USER')
 PASSWORD= os.getenv('PASSWORD')
 DB= os.getenv('DB')
