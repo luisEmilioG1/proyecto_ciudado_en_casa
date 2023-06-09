@@ -7,7 +7,7 @@ RUN  apk update \
 	&& pip install --upgrade pip
 
 RUN  python3 -m venv .venv 
-RUN source .venv/Scripts/activate
+RUN source .venv/bin/activate
 
 COPY requirements.txt .
 
