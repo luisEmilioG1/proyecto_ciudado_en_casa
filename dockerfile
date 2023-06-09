@@ -1,20 +1,26 @@
-# Utiliza la imagen oficial de Python como imagen base
-FROM python:3.9
+# Use the official Python base image
+FROM python:3.9-slim
 
-# Establece el directorio de trabajo en /app
+# Set the working directory in the container
 WORKDIR /app
 
-# Copia el archivo requirements.txt al directorio de trabajo
+# Copy the requirements.txt file
 COPY requirements.txt .
 
-# Instala las dependencias de la aplicación
+# Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el contenido del directorio actual al directorio de trabajo en el contenedor
+# Copy the application code to the container
 COPY . .
 
-# Expone el puerto 8000 (el puerto por defecto de FastAPI)
+# Create a virtual environment
+RUN python -m venv venv
+
+# Activate the virtual environment
+SHELL ["venv/bin/activate"]
+
+# Expose the port on which the FastAPI application will run
 EXPOSE 8000
 
-# Define el comando a ejecutar cuando se inicie el contenedor
+# Start the FastAPI application using uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
