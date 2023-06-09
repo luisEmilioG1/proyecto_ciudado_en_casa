@@ -4,18 +4,16 @@
 FROM python:3.9
 
 # Establecemos el directorio de trabajo en /app
-WORKDIR /app
+RUN mkdir /app
 
 # Copiamos el archivo requirements.txt al contenedor
-COPY requirements.txt .
+COPY . /app
 
 # Creamos un ambiente virtual e instalamos los requerimientos
+RUN cd /app
 RUN python3 -m venv .venv
-RUN source /app/.venv/bin/activate
+RUN source .venv/bin/activate
 RUN pip install -r requirements.txt
-
-# Copiamos el resto de los archivos al contenedor
-COPY . .
 
 # Exponemos el puerto en el que se ejecutará la aplicación
 EXPOSE 8000
